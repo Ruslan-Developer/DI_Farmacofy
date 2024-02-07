@@ -467,6 +467,11 @@ class _PaginaTratamientoState extends State<PaginaTratamiento> {
                                           tratamiento.idMedicamento = int.parse(value); //Asignación del valor del campo al atributo idMedicamento del objeto medicamento
                                         });
                                       },
+                                      /**
+                                       * !IMPORTANTE:
+                                       * * Aqui es donde se debe de asignar el valor del medicamento seleccionado al atributo idMedicamento del objeto tratamiento
+                                       * * Pendiente ver como lo hago para crear Tratamiento al mismo tiempo que medicamento y asignar el id del medicamento al tratamiento
+                                       */
                                       // validator: (value) {
                                       //   if (value == null) {
                                       //     return 'Por favor, seleccione un medicamento';
@@ -532,6 +537,7 @@ class _PaginaTratamientoState extends State<PaginaTratamiento> {
                                     _habilitado = value == 'Nuevo medicamento'; // Habilita los campos si se selecciona 'Agregar nuevo medicamento'
                                   });
                                 },
+                                
                             ),
                             
                               )
@@ -562,10 +568,12 @@ class _PaginaTratamientoState extends State<PaginaTratamiento> {
                         }
                         return null;
                       },
+
                       //Asignación del valor del campo al atributo nombre del objeto medicamento
                       onSaved: (value) {
                         if(value != null && _habilitado == true){
                           medicamento.nombre = value;
+                                                   
                         }
                          
                       },
@@ -788,6 +796,7 @@ class _PaginaTratamientoState extends State<PaginaTratamiento> {
                               if(value != null)
                               {
                                 medicamento.cantidadEnvase = int.parse(value);
+                                
                               }
                             }
                             
@@ -819,10 +828,10 @@ class _PaginaTratamientoState extends State<PaginaTratamiento> {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save(); //Guarda los datos del formulario
                               //Añadir el medicamento a la base de datos solo si se ha seleccionado la opción de añadir un medicamento
-                              if(_habilitado == true)
-                              {
+                              // if(_habilitado == true)
+                              // {
                                 BaseDeDatos.insertarBD('Medicamento', medicamento.toMap());
-                              }
+                              // }
                         
                               //Añadir el tratamiento a la base de datos
                               BaseDeDatos.insertarBD('Tratamiento', tratamiento.toMap());
